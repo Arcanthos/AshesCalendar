@@ -1,0 +1,26 @@
+version: '3.7'
+services:
+
+###>database/Postgres###
+    database:
+      image: postgres:13-alpine
+      environment:
+        POSTGRES_DB : ac_database
+        POSTGRES_PASSWORD : ac_pass
+        POSTGRES_USER : ac_user
+      volumes:
+        - db-data:/var/lib/postgresql/data:rw
+      ports:
+        - "5432:5432"
+
+###<database/Postgres###
+
+###> symfony/mailer ###
+    mailer:
+      image: schickling/mailcatcher
+      ports: [ "1025", "1080" ]
+###< symfony/mailer ###
+
+
+volumes:
+  db-data:
